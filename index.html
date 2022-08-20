@@ -9,10 +9,12 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="new-todo">
-        <input type="text" placeholder="新しいタスク">
-        <button type="submit">作成</button>
-    </div>
+    <form>
+        <div class="new-todo">
+            <input type="text" placeholder="新しいタスク">
+            <button type="submit">作成</button>
+        </div>
+    </form>
     <div class="todo-list">
         <div class="todo done">
             掃除をする
@@ -27,5 +29,22 @@
             掃除をする
         </div>
     </div>
+    <script>
+        function addNewTodo(event) {
+            event.preventDefault()
+            const input = document.querySelector(".new-todo input")
+
+            const todoEl = document.createElement("div")
+            todoEl.classList.add("todo","pending")
+            todoEl.innerText = input.value
+
+            const todoList = document.querySelector(".todo-list")
+            todoList.appendChild(todoEl)
+            input.value = ""
+        }
+
+        const form = document.querySelector("form")
+        form.addEventListener("submit", addNewTodo)
+    </script>
 </body>
 </html>
