@@ -31,11 +31,13 @@
     </div>
     <script>
         function addNewTodo(event) {
+            // https://developer.mozilla.org/ja/docs/Web/API/Event/preventDefault
             event.preventDefault()
             const input = document.querySelector(".new-todo input")
 
             const todoEl = document.createElement("div")
             todoEl.classList.add("todo","pending")
+            // valueはinputに入力されている値
             todoEl.innerText = input.value
 
             const todoList = document.querySelector(".todo-list")
@@ -43,8 +45,28 @@
             input.value = ""
         }
 
+        function toggleStatus(event) {
+            const todo = event.target
+            if (todo.classList.contains("done")) {
+                todo.classList.replace("done","pending");
+            } else {
+                todo.classList.replace("pending","done");
+            }
+        }
+
         const form = document.querySelector("form")
         form.addEventListener("submit", addNewTodo)
+
+        // div.todoの上でダブルクリックしたときに、クラスを
+        // done -> pending
+        // pending -> done
+        // に変更する
+        const todoes =document.querySelectorAll("div.todo")
+
+        for (let i = 0; i < todoes.length; i++) {
+            const todo = todoes[i]
+            todo.addEventListener("dblclick", toggleStatus)
+        }
     </script>
 </body>
 </html>
